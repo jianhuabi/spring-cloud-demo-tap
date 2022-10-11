@@ -15,7 +15,7 @@ spec:
       value: "17"
   source:
     git:
-      url: https://github.com/tsalm-pivotal/spring-cloud-demo-tap.git
+      url: https://github.com/jianhuabi/spring-cloud-demo-tap.git
       ref:
         branch: main
     subPath: gateway
