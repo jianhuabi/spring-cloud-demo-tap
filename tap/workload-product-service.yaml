@@ -6,8 +6,8 @@ metadata:
     autoscaling.knative.dev/min-scale: "1"
   labels:
     app.kubernetes.io/part-of: product-service
-    apps.tanzu.vmware.com/workload-type: web
-    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: web-dev
+    apps.tanzu.vmware.com/has-tests: "false"
     networking.knative.dev/visibility: cluster-local
 spec:
   build:
@@ -31,8 +31,8 @@ spec:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
       name: auth-client
-  - name: observability
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: observability-binding-compatible
+#  - name: observability
+#    ref:
+#      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+#      kind: ResourceClaim
+#      name: observability-binding-compatible

@@ -22,12 +22,12 @@ spec:
       internalUnsafe:
         users:
           - username: "admin"
-            password: "$2a$12$STtDyRUdA4kUvMNdp7eU7OYs6xquWhEfVbkW8TtZ641oC5/vYCKXi"
+            password: "$2a$10$201z9o/tHlocFsHFTo0plukh03ApBYe4dRiXcqeyRQH6CNNtS8jWK"
             roles:
             - "customer"
             - "admin"
           - username: "user"
-            password: "$2a$12$STtDyRUdA4kUvMNdp7eU7OYs6xquWhEfVbkW8TtZ641oC5/vYCKXi"
+            password: "$2a$10$201z9o/tHlocFsHFTo0plukh03ApBYe4dRiXcqeyRQH6CNNtS8jWK"
             roles:
             - "customer"
 ---
