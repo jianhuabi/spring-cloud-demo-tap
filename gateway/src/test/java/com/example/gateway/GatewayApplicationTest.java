@@ -12,8 +12,8 @@ class GatewayApplicationTest {
     @MockBean
     ReactiveClientRegistrationRepository clientRegistrationRepository;
 
-    @MockBean
-    ServerOAuth2AuthorizedClientRepository authorizedClients;
+//    @MockBean
+//    ServerOAuth2AuthorizedClientRepository authorizedClients;
 
     @Test
     void contextLoads() {

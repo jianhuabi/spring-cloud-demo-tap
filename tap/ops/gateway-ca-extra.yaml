@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gateway-ca-extra-binding-compatible
+type: servicebinding.io/ca-certificates
+stringData:
+  type: ca-certificates
+  provider: vmware
+  appsso-ca.pem: |
+    -----BEGIN CERTIFICATE-----
+    MIIC7zCCAdegAwIBAgIRAKTiH9k+SYW4MsJa7v0h51QwDQYJKoZIhvcNAQELBQAw
+    ADAeFw0yMjEwMTExMjM2NTdaFw0yMzAxMDkxMjM2NTdaMAAwggEiMA0GCSqGSIb3
+    DQEBAQUAA4IBDwAwggEKAoIBAQC3OVCfa4NCIa3WpnMGp0OP4CAfi1OL4xeIj+8I
+    zBBSvh2MpMyPold5+/+JK5uUGHRKms1hqXXaRP5H7keAd5o2CeLCvAnuFDCqE7vu
+    zwGwOeVVOuXURaLp1z1etl6nPsGISIsw472yUGiIFtwO6mvuIq7CtqPCzgXeceKw
+    6TFkqSbcJgqOWrSFo/erKvOJ0FOjjY8UTMywM/2O9P31K6JExHvitWfAbOynu1hJ
+    /F6dTCTX8coQtpfauyB0+U7q+L+QQDRtRhJJneUu/ShP0vBVW4hjeHaiYr9Zul5D
+    pZZpwLJi9uULt26N8MVY5s/ZwtOeofBPExipz1OYJmraQhrnAgMBAAGjZDBiMA4G
+    A1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMEIGA1UdEQEB/wQ4MDaCNGF1dGhz
+    ZXJ2ZXItMS1kZXYtc3BhY2UudGFwLmgyby00LTEzMTYuaDJvLnZtd2FyZS5jb20w
+    DQYJKoZIhvcNAQELBQADggEBAJvFaZmRWf/D6xtZeJiQwFplFArjtC0j2z25xicr
+    4NtLMMo6GWksnfozSrIFN6Z1aJHghJliR2y+X/bBqQY+ymkH1PH47XVNYUyRVk4n
+    2/siBOndvENOTXauQKM4DfjUJLjJxn8YknfQfVsbRPtEHROLCgwz5IuZ3DnFYdhQ
+    ZAEM6JG9tlJhXFRUqTnVabEhDUje/8V7wvfsLHip/w2NtfkN0WOxyOsjN935ZWWd
+    2ROnO10eFcsVVaCSt3J6H1DAHYY628xVdYBl4Rk5QtdUZzozAk5+zdWeiIzxu4wl
+    kZU7Vg7C/o7Pg5/qKklXUB5KyUd9M+zAiJYZK7nrRtU+06A=
+    -----END CERTIFICATE-----
+---
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ResourceClaim
+metadata:
+  name: gateway-ca-extra-binding-compatible
+spec:
+  ref:
+    apiVersion: v1
+    kind: Secret
+    name: gateway-ca-extra-binding-compatible
