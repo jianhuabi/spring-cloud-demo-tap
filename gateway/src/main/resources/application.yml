@@ -1,6 +1,9 @@
 spring:
   application.name: gateway # for config server and service-registry
   config.import: "optional:configserver:"
+  httpclient:
+    ssl:
+      useInsecureTrustManager: true
 wavefront.application.name: spring-cloud-demo-tap
 
 management:
