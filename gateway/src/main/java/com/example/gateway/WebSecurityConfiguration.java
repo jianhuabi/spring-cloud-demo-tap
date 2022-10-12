@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -61,8 +62,8 @@ class WebSecurityConfiguration {
                 .forClient()
                 .trustManager(InsecureTrustManagerFactory.INSTANCE)
                 .build();
-        ClientHttpConnector httpConnector = (ClientHttpConnector)HttpClient.create().secure(t -> t.sslContext(sslContext) );
-        return WebClient.builder().clientConnector(httpConnector).build();
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(sslContext) );
+        return WebClient.builder().clientConnector(new ReactorClientHttpConnector(httpClient)).build();
     }
 
     @Bean
