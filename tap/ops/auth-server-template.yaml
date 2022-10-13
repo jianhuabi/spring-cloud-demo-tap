@@ -22,14 +22,17 @@ spec:
       internalUnsafe:
         users:
           - username: "admin"
-            password: "$2a$10$201z9o/tHlocFsHFTo0plukh03ApBYe4dRiXcqeyRQH6CNNtS8jWK"
+            password: "Tanzu1!"
+            email: "admin@vmware.com"
             roles:
             - "customer"
             - "admin"
           - username: "user"
-            password: "$2a$10$201z9o/tHlocFsHFTo0plukh03ApBYe4dRiXcqeyRQH6CNNtS8jWK"
+            password: "Tanzu1!"
+            email: "user@example.com"
             roles:
             - "customer"
+            - "user"
 ---
 apiVersion: secretgen.k14s.io/v1alpha1
 kind: RSAKey

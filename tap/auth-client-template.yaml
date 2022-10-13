@@ -15,7 +15,11 @@ spec:
     - "client_credentials"
     - "authorization_code"
   scopes:
-  - name: "openid"
+    - name: "openid"
+    - name: "email"
+    - name: "profile"
+    - name: "roles"
+    - name: "message.read"
 ---
 apiVersion: services.apps.tanzu.vmware.com/v1alpha1
 kind: ResourceClaim
