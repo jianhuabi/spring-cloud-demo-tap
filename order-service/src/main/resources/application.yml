@@ -6,7 +6,7 @@
   cache:
     redis:
       time-to-live: 60s
-wavefront.application.name: spring-cloud-demo-tap
+wavefront.application.name: spring-cloud-demo-tap-cnse
 
 logging.level.org.springframework.cache: TRACE
 management:

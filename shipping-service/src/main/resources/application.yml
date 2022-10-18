@@ -4,7 +4,7 @@ spring:
   cloud.stream.bindings:
       shipOrder-in-0.destination: ${shipping.in-exchange}
       shipOrder-out-0.destination: ${shipping.out-exchange}
-wavefront.application.name: spring-cloud-demo-tap
+wavefront.application.name: spring-cloud-demo-tap-cnse
 
 management:
   endpoint.restart.enabled: true

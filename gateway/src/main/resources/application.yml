@@ -4,7 +4,7 @@ spring:
   httpclient:
     ssl:
       useInsecureTrustManager: true
-wavefront.application.name: spring-cloud-demo-tap
+wavefront.application.name: spring-cloud-demo-tap-cnse
 
 management:
   endpoint:

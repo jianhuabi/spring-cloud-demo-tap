@@ -6,8 +6,8 @@ metadata:
     autoscaling.knative.dev/min-scale: "1"
   labels:
     app.kubernetes.io/part-of: product-service
-    apps.tanzu.vmware.com/workload-type: web-dev
-    apps.tanzu.vmware.com/has-tests: "false"
+    apps.tanzu.vmware.com/workload-type: web
+    apps.tanzu.vmware.com/has-tests: "true"
     networking.knative.dev/visibility: cluster-local
 spec:
   build:
