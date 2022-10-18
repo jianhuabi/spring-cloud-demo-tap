@@ -31,11 +31,11 @@ spec:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
       name: auth-client
-#  - name: observability
-#    ref:
-#      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-#      kind: ResourceClaim
-#      name: observability-binding-compatible
+  - name: observability
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: observability-binding-compatible
   - name: appsso-ca
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
