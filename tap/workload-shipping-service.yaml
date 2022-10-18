@@ -4,7 +4,7 @@ metadata:
   name: shipping-service
   labels:
     app.kubernetes.io/part-of: shipping-service
-    apps.tanzu.vmware.com/workload-type: queue
+    apps.tanzu.vmware.com/workload-type: worker
     apps.tanzu.vmware.com/has-tests: "true"
 spec:
   build:
@@ -28,8 +28,13 @@ spec:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
       name: configserver-binding-compatible
-  - name: observability
+#  - name: observability
+#    ref:
+#      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+#      kind: ResourceClaim
+#      name: observability-binding-compatible
+  - name: appsso-ca
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
-      name: observability-binding-compatible
+      name: gateway-ca-extra-binding-compatible

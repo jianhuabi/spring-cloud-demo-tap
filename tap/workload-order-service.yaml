@@ -21,6 +21,16 @@ spec:
         branch: main
     subPath: order-service
   serviceClaims:
+  - name: config-server
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: configserver-binding-compatible
+  - name: cache
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: gemfire-binding-compatible
   - name: rmq
     ref:
       apiVersion: rabbitmq.com/v1beta1
@@ -31,16 +41,6 @@ spec:
       apiVersion: sql.tanzu.vmware.com/v1
       kind: Postgres
       name: postgres-1
-  - name: cache
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: gemfire-binding-compatible
-  - name: config-server
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: configserver-binding-compatible
   - name: auth-client
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
@@ -51,3 +51,8 @@ spec:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
       name: observability-binding-compatible
+  - name: appsso-ca
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: gateway-ca-extra-binding-compatible
