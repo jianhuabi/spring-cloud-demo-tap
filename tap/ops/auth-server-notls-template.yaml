@@ -12,8 +12,9 @@ metadata:
     sso.apps.tanzu.vmware.com/allow-unsafe-issuer-uri: ""
     sso.apps.tanzu.vmware.com/allow-unsafe-identity-provider: ""
 spec:
+  tls:
+    disabled: true
   replicas: 1
-  issuerURI: #@ data.values.issuer_uri
   tokenSignature:
     signAndVerifyKeyRef:
       name: "authserver-1-signing-key"
@@ -46,33 +47,3 @@ spec:
       key.pem: $(privateKey)
       pub.pem: $(publicKey)
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: authserver-1
-  namespace: #@ data.values.dev_namespace
-spec:
-  selector:
-    app.kubernetes.io/part-of: authserver-1
-    app.kubernetes.io/component: authorization-server
-  ports:
-    - port: 80
-      targetPort: 8080
----
-apiVersion: projectcontour.io/v1
-kind: HTTPProxy
-metadata:
-  name: authserver-1
-  namespace: #@ data.values.dev_namespace
-spec:
-  virtualhost:
-    fqdn: #@ data.values.issuer_uri.replace("https://", "").replace("http://", "")
-    #@ if/end hasattr(data.values, "tls_secret_name"):
-    tls:
-      secretName: #@ data.values.tls_secret_name
-  routes:
-    - conditions:
-        - prefix: /
-      services:
-        - name: authserver-1
-          port: 80
