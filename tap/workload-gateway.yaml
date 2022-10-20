@@ -35,8 +35,8 @@ spec:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
       name: auth-client
-  - name: appsso-ca
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: gateway-ca-extra-binding-compatible
+#  - name: appsso-ca
+#    ref:
+#      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+#      kind: ResourceClaim
+#      name: gateway-ca-extra-binding-compatible

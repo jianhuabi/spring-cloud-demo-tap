@@ -41,18 +41,13 @@ spec:
       apiVersion: sql.tanzu.vmware.com/v1
       kind: Postgres
       name: postgres-1
-  - name: auth-client
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: auth-client
   - name: observability
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
       kind: ResourceClaim
       name: observability-binding-compatible
-  - name: appsso-ca
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: gateway-ca-extra-binding-compatible
+#  - name: appsso-ca
+#    ref:
+#      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+#      kind: ResourceClaim
+#      name: gateway-ca-extra-binding-compatible
