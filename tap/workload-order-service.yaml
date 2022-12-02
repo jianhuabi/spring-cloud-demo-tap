@@ -10,6 +10,10 @@ metadata:
     apps.tanzu.vmware.com/has-tests: "true"
     networking.knative.dev/visibility: cluster-local
 spec:
+  params:
+  - name: testing_pipeline_params
+    value:
+      source-sub-path: order-service
   build:
     env:
     - name: BP_JVM_VERSION
@@ -21,16 +25,6 @@ spec:
         branch: main
     subPath: order-service
   serviceClaims:
-  - name: config-server
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: configserver-binding-compatible
-  - name: cache
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: gemfire-binding-compatible
   - name: rmq
     ref:
       apiVersion: rabbitmq.com/v1beta1
@@ -41,6 +35,21 @@ spec:
       apiVersion: sql.tanzu.vmware.com/v1
       kind: Postgres
       name: postgres-1
+  - name: cache
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: gemfire-binding-compatible
+  - name: config-server
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: configserver-binding-compatible
+  - name: auth-client
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: auth-client
   - name: observability
     ref:
       apiVersion: services.apps.tanzu.vmware.com/v1alpha1

@@ -4,6 +4,6 @@ metadata:
   name: postgres-1
 spec:
   imagePullSecret:
-    name: tanzu-secret
+    name: tap-registry
   storageClassName: vc01cl01-t0compute
   monitorStorageClassName: vc01cl01-t0compute

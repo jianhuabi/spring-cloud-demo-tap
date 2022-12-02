@@ -3,7 +3,7 @@
 ![](architecture-diagram.png)
 
 ## Prerequisites
-- TAP >=1.2 installation
+- TAP >=1.3 installation (if you've 1.2 installed, you can have a look at the "tap-1.2" tag)
 - [ytt](https://carvel.dev/ytt/)
 - The default installation of TAP uses a single Contour to provide internet-visible services. You can install a second Contour instance with service type ClusterIP if you want to expose some services to only the local cluster - which is recommended for this setup. The second instance must be installed in a separate namespace. You must set the CNR value `ingress.internal.namespace` to point to this namespace.
 - RabbitMQ operator, Tanzu PostreSQL operator, Tanzu Gemfire operator, Tanzu Observability
@@ -56,6 +56,12 @@ kubectl apply -f tap/ops/config-server.yaml -n $DEV_NAMESPACE
 ```
 
 #### App SSO
+For an no-secure(http) setup:
+
+```
+ytt -f tap/ops/auth-server-notls-template.yaml -v dev_namespace=$DEV_NAMESPACE  | k apply -f-
+```
+
 For a TLS setup:
 ```
 ytt -f tap/ops/auth-server-template.yaml -v dev_namespace=$DEV_NAMESPACE -v issuer_uri=https://authserver-1-${DEV_NAMESPACE}.example.com -v tls_secret_name=<namespace>/<secret> | kubectl apply -f -
@@ -73,6 +79,13 @@ ytt -f tap/ops/observability-template.yaml -v uri=https://vmwareprod.wavefront.c
 
 #### Gemfire
 ```
+tanzu secret registry add tanzu-net-registry \
+  --username <tanzunet-username> --password <tanzunet-pw> \
+  --server registry.tanzu.vmware.com \
+  --yes --namespace $DEV_NAMESPACE
+```
+
+```
 kubectl apply -f tap/ops/gemfire.yaml -n $DEV_NAMESPACE
 ```
 
@@ -88,10 +101,15 @@ kubectl apply -f tap/ops/rabbit.yaml -n $DEV_NAMESPACE
 
 ### Devs:
 ```
-kubectl apply -f tap/test-pipeline.yaml -f -n $DEV_NAMESPACE
-ytt -f tap/auth-client-template.yaml -v gateway_url=https://gateway-${DEV_NAMESPACE}.cnr.example.com | kubectl apply -n $DEV_NAMESPACE -f -
+kubectl apply -f tap/test-pipeline.yaml -n $DEV_NAMESPACE
+ytt -f tap/auth-client-template.yaml -v gateway_url=https://gateway.${DEV_NAMESPACE}.cnr.example.com | kubectl apply -n $DEV_NAMESPACE -f -
 kubectl apply -f tap/workload-product-service.yaml -n $DEV_NAMESPACE
 kubectl apply -f tap/workload-order-service.yaml -n $DEV_NAMESPACE
 kubectl apply -f tap/workload-shipping-service.yaml -n $DEV_NAMESPACE
-kubectl apply -f tap/workload-shipping-service.yaml -n $DEV_NAMESPACE
+kubectl apply -f tap/workload-gateway.yaml -n $DEV_NAMESPACE
+```
+
+````
+sed -i '' "s/https:\/\/authserver-1-dev-space.emea.end2end.link/https:\/\/authserver-1-${DEV_NAMESPACE}.example.com/g" frontend/src/environments/environment.prod.ts
+kubectl apply -f tap/workload-frontend.yaml -n $DEV_NAMESPACE
 ```

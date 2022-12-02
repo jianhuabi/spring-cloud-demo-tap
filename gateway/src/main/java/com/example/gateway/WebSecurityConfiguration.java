@@ -1,60 +1,34 @@
 package com.example.gateway;
 
+import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
-import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.ServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
-
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @EnableWebFluxSecurity
 @Configuration
 class WebSecurityConfiguration {
-//    @Bean
-//    public WebClient createWebClient(ReactiveClientRegistrationRepository clientRegistrationRepository, ServerOAuth2AuthorizedClientRepository authorizedClients) throws SSLException {
-//        SslContext sslContext = SslContextBuilder
-//                .forClient()
-//                .trustManager(InsecureTrustManagerFactory.INSTANCE)
-//                .build();
-//        TcpClient tcpClient = TcpClient.create().secure(sslContextSpec -> sslContextSpec.sslContext(sslContext));
-//        HttpClient httpClient = HttpClient.from(tcpClient);
-//
-//        ServerOAuth2AuthorizedClientExchangeFilterFunction oauth =
-//                new ServerOAuth2AuthorizedClientExchangeFilterFunction(
-//                        clientRegistrationRepository,
-//                        authorizedClients);
-//        oauth.setDefaultOAuth2AuthorizedClient(true);
-//        return WebClient.builder().filter(oauth).clientConnector(new ReactorClientHttpConnector(httpClient)).build();
-//    }
 
     @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, ReactiveClientRegistrationRepository clientRegistrationRepository) {
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
+                .cors().and()
                 .csrf().disable()
-                .authorizeExchange()
-                .pathMatchers("/services/**").authenticated()
-                .pathMatchers("/**").permitAll()
-                .and()
-                .oauth2Login(Customizer.withDefaults())
-                .logout(logoutSpec -> {
-                    logoutSpec.logoutHandler(logoutHandler()).logoutHandler(new WebSessionServerLogoutHandler()).logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository));
-                }).build();
+                .authorizeExchange(authorize -> authorize
+                        .pathMatchers("/services/**").authenticated()
+                        .pathMatchers("/**").permitAll()
+                )
+                .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt).build();
     }
 
-    private ServerLogoutHandler logoutHandler() {
-        return new DelegatingServerLogoutHandler(new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler());
-    }
-
-    private OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler(ReactiveClientRegistrationRepository clientRegistrationRepository) {
-        var oidcLogoutSuccessHandler = new OidcClientInitiatedServerLogoutSuccessHandler(clientRegistrationRepository);
-        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}");
-        return oidcLogoutSuccessHandler;
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(GlobalCorsProperties globalCorsProperties) {
+        var source = new UrlBasedCorsConfigurationSource();
+        globalCorsProperties.getCorsConfigurations().forEach(source::registerCorsConfiguration);
+        return source;
     }
 }
