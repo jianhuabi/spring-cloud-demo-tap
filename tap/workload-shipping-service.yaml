@@ -4,17 +4,17 @@ metadata:
   name: shipping-service
   labels:
     app.kubernetes.io/part-of: shipping-service
-    apps.tanzu.vmware.com/workload-type: queue
-    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: worker
+    apps.tanzu.vmware.com/has-tests: 'true'
 spec:
   params:
-  - name: testing_pipeline_params
-    value:
-      source-sub-path: shipping-service
+    - name: testing_pipeline_params
+      value:
+        source-sub-path: shipping-service
   build:
     env:
-    - name: BP_JVM_VERSION
-      value: "17"
+      - name: BP_JVM_VERSION
+        value: '17'
   source:
     git:
       url: https://github.com/jianhuabi/spring-cloud-demo-tap.git
@@ -22,16 +22,16 @@ spec:
         branch: main
     subPath: shipping-service
   serviceClaims:
-  - name: rmq
-    ref:
-      apiVersion: rabbitmq.com/v1beta1
-      kind: RabbitmqCluster
-      name: rmq-1
-  - name: config-server
-    ref:
-      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-      kind: ResourceClaim
-      name: configserver-binding-compatible
+    - name: rmq
+      ref:
+        apiVersion: rabbitmq.com/v1beta1
+        kind: RabbitmqCluster
+        name: rmq-1
+    - name: config-server
+      ref:
+        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+        kind: ResourceClaim
+        name: configserver-binding-compatible
 #  - name: observability
 #    ref:
 #      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
