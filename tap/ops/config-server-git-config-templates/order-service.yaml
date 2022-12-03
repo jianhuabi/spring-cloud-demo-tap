@@ -1,3 +1,4 @@
 #@ load("@ytt:data", "data")
 ---
 order.products-api-url: #@ "http://product-service." + data.values.namespace + "/api/v1/products"
+spring.security.oauth2.client.provider.appsso.issuer-uri: http://authserver-1.dev-space.appsso.tap.h2o-4-3220.h2o.vmware.com
