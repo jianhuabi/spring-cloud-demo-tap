@@ -44,8 +44,8 @@ Create a (private) Git repository with the the files in the `generated/config-se
 ```
 mkdir generated/config-server-config
 
-ytt -f tap/ops/config-server-git-config-templates/gateway.yaml -v namespace=$DEV_NAMESPACE  > generated/config-server-config/gateway.yaml
-ytt -f tap/ops/config-server-git-config-templates/order-service.yaml -v namespace=$DEV_NAMESPACE > generated/config-server-config/order-service.yaml
+ytt -f tap/ops/config-server-git-config-templates/gateway.yaml -v namespace=$DEV_NAMESPACE -v issuer_uri=<issuer_uri> > generated/config-server-config/gateway.yaml
+ytt -f tap/ops/config-server-git-config-templates/order-service.yaml -v namespace=$DEV_NAMESPACE -v issuer_uri=<issuer_uri> > generated/config-server-config/order-service.yaml
 ytt -f tap/ops/config-server-git-config-templates/product-service.yaml -v issuer_uri=<issuer_uri> > generated/config-server-config/product-service.yaml
 cp tap/ops/config-server-git-config-templates/shipping-service.yaml  generated/config-server-config
 ```
@@ -110,6 +110,6 @@ kubectl apply -f tap/workload-gateway.yaml -n $DEV_NAMESPACE
 ```
 
 ````
-sed -i '' "s/https:\/\/authserver-1-dev-space.emea.end2end.link/https:\/\/authserver-1-${DEV_NAMESPACE}.example.com/g" frontend/src/environments/environment.prod.ts
+sed -i '' "s/https:\/\/authserver-1-dev-space.emea.end2end.link/https:\/\/authserver-1.${DEV_NAMESPACE}.appsso.tap.h2o-4-3220.h2o.vmware.com/g" frontend/src/environments/environment.prod.ts
 kubectl apply -f tap/workload-frontend.yaml -n $DEV_NAMESPACE
 ```

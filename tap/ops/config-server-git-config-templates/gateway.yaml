@@ -30,3 +30,4 @@ spring.cloud.gateway:
         - '*'
       allowedHeaders:
         - '*'
+spring.security.oauth2.client.provider.appsso.issuer-uri: #@ data.values.issuer_uri
