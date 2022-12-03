@@ -9,7 +9,8 @@ export const environment = {
   baseHref: '/',
   authConfig: {
     issuer: '',
-    clientId: ''
+    clientId: '',
+    requireHttps: false
   },
   endpoints: {
     orders: '',

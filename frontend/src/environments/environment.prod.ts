@@ -11,3 +11,4 @@ export const environment = {
     products: window.location.origin +  '/services/product-service/api/v1/products'
   }
 };
+
